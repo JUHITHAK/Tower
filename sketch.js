@@ -5,9 +5,10 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var box1,box2,box3,box4,box5,box6,box7,box8,box9,box10,box11,box12,box13,box15,box16,box17,box18,box19,box20,box21,box22,
 box23,box24,box25,ground;
-
+var score = 0,bg;
 function setup(){
     var canvas = createCanvas(1200,600);
+    getbackgroundImg();
     engine = Engine.create();
     world = engine.world;
     ball = new Ball (200,300);
@@ -50,7 +51,16 @@ function setup(){
 }
 
 function draw(){
-    background(0);
+    if(bg){
+        background(bg)
+    }
+    else{
+        background(255);
+    }
+    stroke (255);
+    textSize (30);
+    fill ("red");
+    text("score: " + score,width-300,50);
     Engine.update(engine);
     fill ("purple");
     box1.display();
@@ -86,7 +96,38 @@ function draw(){
     box25.display();
     stand1.display();
     stand2.display();
-  
+    
+    box1.score();
+    box2.score();
+    box3.score();
+    box4.score();
+    box5.score();
+    box6.score();
+    box7.score();
+    
+    box8.score();
+    box9.score();
+    box10.score();
+    box11.score();
+    box12.score();
+    
+    box13.score();
+    box14.score();
+    box15.score();
+   
+    box16.score();
+   
+    box17.score();
+    box18.score();
+    box19.score();
+    box20.score();
+    box21.score();
+    
+    box22.score();
+    box23.score();
+    box24.score();
+    
+    box25.score();
     ground.display();
     ball.display();
     slingshot.display();
@@ -109,4 +150,19 @@ function keyPressed(){
     if(keyCode === 32){
         slingshot.attach(ball.body);
     }
+}
+
+async function getbackgroundImg(){
+    var response = await fetch("http://worldtimeapi.org/api/timezone/America/New_York");
+    var responseJson = await response.json();
+    var dt = responseJson.datetime;
+    var r = dt.slice(11,13);
+    if(r>06 && r<19){
+        bg = "darkblue"
+        
+    }
+    else{
+        bg = "lightblue"
+    }
+    
 }
